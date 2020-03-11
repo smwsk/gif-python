@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>gif在线生成</title>
+</head>
+<!-- ZUI 标准版压缩后的 CSS 文件 -->
+<link rel="stylesheet" href="/static/zui/css/zui.min.css">
+<!-- ZUI Javascript 依赖 jQuery -->
+<script src="/static/jquery/jquery.js"></script>
+<!-- ZUI 标准版压缩后的 JavaScript 文件 -->
+<script src="/static/zui/js/zui.min.js"></script>
+<body>
+<div class="container-fluid" style="margin-top: 1%">
+    <div class="panel">
+        <div class="panel-body">
+            在线生成
+        </div>
+        <div class="panel-footer">
+
+            <form class="form-horizontal">
+                <div class="row box-flex">
+                    <div class="col-lg-6" style="align-items: center">
+                        <video style="width: 80%;height: 80%" src="{{ gif.video_url }}" controls="controls"></video>
+                    </div>
+                    <div class="box-flex col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="exampleInputAccount4" class="col-sm-2">第一句</label>
+                                    <div class="col-md-6 col-sm-10">
+                                        <input type="text" class="form-control" id="exampleInputAccount4"
+                                               placeholder="好啊">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="exampleInputAccount4" class="col-sm-2">第二句</label>
+                                    <div class="col-md-6 col-sm-10">
+                                        <input type="text" class="form-control" id="exampleInputAccount4"
+                                               placeholder="就算你是一流工程师">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="exampleInputAccount4" class="col-sm-2">第三句</label>
+                                    <div class="col-md-6 col-sm-10">
+                                        <input type="text" class="form-control" id="exampleInputAccount4"
+                                               placeholder="就算你是一流工程师">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="exampleInputAccount4" class="col-sm-2">第四句</label>
+                                    <div class="col-md-6 col-sm-10">
+                                        <input type="text" class="form-control" id="exampleInputAccount4"
+                                               placeholder="就算你是一流工程师">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="exampleInputAccount4" class="col-sm-2">第五句</label>
+                                    <div class="col-md-6 col-sm-10">
+                                        <input type="text" class="form-control" id="exampleInputAccount4"
+                                               placeholder="就算你是一流工程师">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box-flex row" style="display:flex;justify-content: space-around;margin-top: 2%">
+                            <button class="btn btn-primary btn-lg" type="button" onclick="JavaScript:history.back(-1)">回到首页</button>
+                            <button class="btn btn-primary btn-lg" type="button">生成GIF</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

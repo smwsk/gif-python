@@ -1,0 +1,49 @@
+body {
+    background: #f6f6f6;
+}
+
+.com-wrap {
+    min-width: 1200px;
+}
+
+.com-wrap:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.header {
+    background: #fff;
+    margin-bottom: 20px;
+}
+
+.com-main {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logo {
+    float: left;
+}
+
+.nav {
+    float: right;
+}
+
+.nav li {
+    display: inline-block;
+}
+
+.nav li a {
+    display: block;
+    height: 64px;
+    line-height: 64px;
+    padding: 0 20px;
+    color: #314659;
+    font-size: 16px
+}
+
+.nav li.active a, .nav li:hover a {
+    color: #1890ff
+}
