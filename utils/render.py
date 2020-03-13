@@ -13,34 +13,34 @@ def calculate_hash(src):
     return m2.hexdigest()
 
 
-def render_gif(template_name, sentences):
+def render_gif(template_name, sentences, gif_info):
     filename = template_name + "-" + calculate_hash(sentences) + ".gif"
     gif_path = "static/cache/" + filename
     if os.path.exists(gif_path):
         return gif_path
-    make_gif_with_ffmpeg(template_name, sentences, filename)
+    make_gif_with_ffmpeg(template_name, sentences, filename,gif_info)
     return gif_path
 
 
-def ass_text(template_name):
-    with open("static/%s/template.tpl" % template_name) as fp:
+def ass_text(template_url):
+    with open(template_url) as fp:
         content = fp.read()
     return content
 
 
-def render_ass(template_name, sentences, filename):
+def render_ass(template_name, sentences, filename,template_url):
     output_file_path = "static/cache/%s.ass" % filename
-    template = ass_text(template_name)
+    template = ass_text(template_url)
     rendered_ass_text = Template(template).render(sentences=sentences)
     with open(output_file_path, "w", encoding="utf8") as fp:
         fp.write(rendered_ass_text)
     return output_file_path
 
 
-def make_gif_with_ffmpeg(template_name, sentences, filename):
-    ass_path = render_ass(template_name, sentences, filename)
+def make_gif_with_ffmpeg(template_name, sentences, filename, gif_info):
+    ass_path = render_ass(template_name, sentences, filename,gif_info.template_url)
     gif_path = "static/cache/" + filename
-    video_path = "static/" + template_name + "/template.mp4"
+    video_path = gif_info.video_url
     print(ass_path, gif_path, video_path)
     cmd = "ffmpeg -i {video_path} -r 8 -vf ass={ass_path},scale=300:-1 -y {gif_path}" \
         .format(video_path=video_path, ass_path=ass_path, gif_path=gif_path)

@@ -12,3 +12,7 @@ numpy==1.14.5
 Pillow==5.2.0
 tqdm==4.23.4
 Werkzeug==0.14.1
+flask-httpauth==3.3.0
+flask-login==0.4.1
+flask-sqlalchemy==2.4.1
+pymysql==0.9.3

@@ -20,61 +20,26 @@
 
             <form class="form-horizontal">
                 <div class="row box-flex">
-                    <div class="col-lg-6" style="align-items: center">
-                        <video style="width: 80%;height: 80%" src="{{ gif.video_url }}" controls="controls"></video>
+                    <div class="col-lg-6" style="align-items: center" id="image-group">
+                        <video style="width: 80%;height: 80%" src="/{{ gif.video_url }}" controls="controls"></video>
                     </div>
                     <div class="box-flex col-lg-6">
                         <div class="row">
+                            {% for template in template_list %}
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="exampleInputAccount4" class="col-sm-2">第一句</label>
+                                    <label for="exampleInputAccount4" class="col-sm-2">第{{ template.index }}句</label>
                                     <div class="col-md-6 col-sm-10">
-                                        <input type="text" class="form-control" id="exampleInputAccount4"
-                                               placeholder="好啊">
+                                        <input type="text" class="form-control" id="template_id{{ template.index }}"
+                                               placeholder="{{ template.template_text }}">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleInputAccount4" class="col-sm-2">第二句</label>
-                                    <div class="col-md-6 col-sm-10">
-                                        <input type="text" class="form-control" id="exampleInputAccount4"
-                                               placeholder="就算你是一流工程师">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleInputAccount4" class="col-sm-2">第三句</label>
-                                    <div class="col-md-6 col-sm-10">
-                                        <input type="text" class="form-control" id="exampleInputAccount4"
-                                               placeholder="就算你是一流工程师">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleInputAccount4" class="col-sm-2">第四句</label>
-                                    <div class="col-md-6 col-sm-10">
-                                        <input type="text" class="form-control" id="exampleInputAccount4"
-                                               placeholder="就算你是一流工程师">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleInputAccount4" class="col-sm-2">第五句</label>
-                                    <div class="col-md-6 col-sm-10">
-                                        <input type="text" class="form-control" id="exampleInputAccount4"
-                                               placeholder="就算你是一流工程师">
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
-
-                        <div class="box-flex row" style="display:flex;justify-content: space-around;margin-top: 2%">
+                        <div class="box-flex row" style="display:flex;justify-content: space-between;margin-top: 2%;width: 100%" id="create-btn">
                             <button class="btn btn-primary btn-lg" type="button" onclick="JavaScript:history.back(-1)">回到首页</button>
-                            <button class="btn btn-primary btn-lg" type="button">生成GIF</button>
+                            <button class="btn btn-primary btn-lg" type="button" onclick="createGif()">生成GIF</button>
                         </div>
                     </div>
                 </div>
@@ -82,5 +47,52 @@
         </div>
     </div>
 </div>
+<script>
+    function createGif() {
+        var name = '{{ gif.name }}'
+        var length = {{ template_list | length }}
+        var params = {}
+        for(var index=1; index<= length; index ++ ){
+            var template_text = $("#template_id"+ index).val()
+            if(template_text == '' || template_text == undefined){
+                template_text = $("#template_id"+ index).attr('placeholder');
+            }
+            params[index-1] = template_text
+        }
+        clearCreateInfo()
+        $.ajax({
+            type: "POST",
+            url: "/gif/make/" + name,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(params),
+            dataType: "json",
+            success: function (message) {
+                if(message.flag){
+                    $("#create-btn").append('<button id="download-btn-id" class="btn btn-success btn-lg" type="button" onclick="downloadGif()">下载生成的GIF</button>')
+                    $("#image-group").append("<img id='create-img' style=\""+ "width:50%;height:30%;margin:4%" +"\" src='/" + message['object'] + "'><img>")
+                }
+            },
+            error: function (message) {
+                //$("#request-process-patent").html("提交数据失败！");
+            }
+        });
+    }
+    
+    function downloadGif() {
+        debugger
+        var url = $("#create-img").attr("src")
+        var name = '下载'
+        const aLink = document.createElement('a')
+        aLink.download = name
+        aLink.href = url
+        aLink.dispatchEvent(new MouseEvent('click', {}))
+    }
+    
+    function clearCreateInfo() {
+        $("#create-img").remove()
+        $("#download-btn-id").remove()
+    }
+
+</script>
 </body>
 </html>
