@@ -11,6 +11,7 @@ from controller.user_controller import user
 from controller.login_controller import login
 from controller.test_controller import test
 from controller.gif_controller import gif
+from controller.api.api_index_controller import api
 
 import controller
 from model.gif_info import gifInfo
@@ -23,6 +24,7 @@ app.register_blueprint(login, url_prefix='/')
 app.register_blueprint(user, url_prefix='/user')
 app.register_blueprint(test, url_prefix= '/test')
 app.register_blueprint(gif, url_prefix= '/gif')
+app.register_blueprint(api, url_prefix= '/api')
 app.config.from_object('config')
 
 # 配置数据库框架
@@ -46,4 +48,4 @@ def not_found(error):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host="localhost", port=8000)
+    app.run(host="192.168.1.35", port=8000)
