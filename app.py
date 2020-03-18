@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import json
+import os
+
 from flask_cors import CORS
 from flask import Flask
 from flask import redirect, render_template, request
@@ -18,6 +20,8 @@ from model.gif_info import gifInfo
 
 app = Flask(__name__)
 
+baseDir = os.path.abspath('.')
+
 # 解决跨域问题
 CORS(app)
 app.register_blueprint(login, url_prefix='/')
@@ -32,13 +36,9 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def hello():
+    app.logger.debug(baseDir)
     list = gifInfo.query([gifInfo],filter=[])
     return render_template('index.html',gif_list=list)
-
-@app.route('/tpl/<name>/')
-def tpl(name="sorry"):
-    app.logger.debug(name)
-    return render_template('{name}/index.html'.format(name=name))
 
 
 @app.errorhandler(404)
@@ -48,4 +48,4 @@ def not_found(error):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host="192.168.1.35", port=8000)
+    app.run(host="127.0.0.1", port=8000)
