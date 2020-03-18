@@ -44,8 +44,10 @@ def make_gif_with_ffmpeg(template_name, sentences, filename, gif_info):
     ass_path = render_ass(template_name, sentences, filename,gif_info.template_url)
     gif_path = "static/cache/" + filename
     video_path = gif_info.video_url
-    cmd = "ffmpeg -i {video_path} -r 8 -vf ass={ass_path},scale=300:-1 -y {gif_path}" \
+    cmd1 = 'cd ' + baseDir
+    cmd2 = "ffmpeg -i {video_path} -r 8 -vf ass={ass_path},scale=300:-1 -y {gif_path}" \
         .format(video_path=video_path, ass_path=ass_path, gif_path=gif_path)
+    cmd = cmd1 + " && " + cmd2
     print(cmd)
     p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
     p.wait()
