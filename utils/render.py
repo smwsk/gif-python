@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import hashlib
 import os
+import platform
+
 from app import baseDir
 from subprocess import Popen, PIPE
 
@@ -39,10 +41,9 @@ def render_ass(template_name, sentences, filename,template_url):
 
 
 def make_gif_with_ffmpeg(template_name, sentences, filename, gif_info):
-    ass_path = render_ass(template_name, sentences, filename,baseDir + '/' +gif_info.template_url)
-    gif_path = baseDir + "/static/cache/" + filename
-    video_path = baseDir + '/' + gif_info.video_url
-    print(ass_path, gif_path, video_path)
+    ass_path = render_ass(template_name, sentences, filename,gif_info.template_url)
+    gif_path = "static/cache/" + filename
+    video_path = gif_info.video_url
     cmd = "ffmpeg -i {video_path} -r 8 -vf ass={ass_path},scale=300:-1 -y {gif_path}" \
         .format(video_path=video_path, ass_path=ass_path, gif_path=gif_path)
     print(cmd)
@@ -52,6 +53,12 @@ def make_gif_with_ffmpeg(template_name, sentences, filename, gif_info):
         print("Error.")
         return -1
 
+def replace_path(path_name):
+    if 'Windows' in platform.system():
+        path_name = path_name.replace('/','\\')
+    else:
+        path_name = path_name.replace('\\','/')
+    return path_name
 
 if __name__ == '__main__':
     print(str(["hello"]))
