@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import hashlib
 import os
+from utils.common import replace_path
+from app import baseDir
 from subprocess import Popen, PIPE
 
 from jinja2 import Template
@@ -32,7 +34,7 @@ def render_ass(template_name, sentences, filename,template_url):
     output_file_path = "static/cache/%s.ass" % filename
     template = ass_text(template_url)
     rendered_ass_text = Template(template).render(sentences=sentences)
-    with open(output_file_path, "w", encoding="utf8") as fp:
+    with open(baseDir + "/" + output_file_path, "w", encoding="utf8") as fp:
         fp.write(rendered_ass_text)
     return output_file_path
 
@@ -41,16 +43,16 @@ def make_gif_with_ffmpeg(template_name, sentences, filename, gif_info):
     ass_path = render_ass(template_name, sentences, filename,gif_info.template_url)
     gif_path = "static/cache/" + filename
     video_path = gif_info.video_url
-    print(ass_path, gif_path, video_path)
-    cmd = "ffmpeg -i {video_path} -r 8 -vf ass={ass_path},scale=300:-1 -y {gif_path}" \
+    cmd1 = 'cd ' + baseDir
+    cmd2 = "ffmpeg -i {video_path} -r 8 -vf ass={ass_path},scale=300:-1 -y {gif_path}" \
         .format(video_path=video_path, ass_path=ass_path, gif_path=gif_path)
+    cmd = cmd1 + " && " + cmd2
     print(cmd)
     p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
     p.wait()
     if p.returncode != 0:
         print("Error.")
         return -1
-
 
 if __name__ == '__main__':
     print(str(["hello"]))

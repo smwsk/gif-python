@@ -15,4 +15,5 @@ Werkzeug==0.14.1
 flask-httpauth==3.3.0
 flask-login==0.4.1
 flask-sqlalchemy==2.4.1
+flask_cors==3.0.7
 pymysql==0.9.3
