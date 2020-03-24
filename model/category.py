@@ -7,6 +7,7 @@ class Category(Base, BaseModel):
     _db_name = 'gif'
     id = Column(BigInteger, primary_key=True)
     name = Column(String(30))
+    home_image_url = Column(String(100))
     description = Column(String(200))
     is_valid = Column(Boolean)
     create_datetime = Column(Date)
