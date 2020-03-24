@@ -8,14 +8,14 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 MYSQLINFO = {
     'gif': {
         'user': 'root',
-        'passwd': '671354',
+        'passwd': 'root',
         'host': '127.0.0.1',
         'port': 3306,
         'db': 'gif',
     },
     'comic': {
         'user': 'root',
-        'passwd': '671354',
+        'passwd': 'root',
         'host': '127.0.0.1',
         'port': 3306,
         'db': 'comic',

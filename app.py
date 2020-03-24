@@ -48,4 +48,4 @@ def not_found(error):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host="192.168.1.35", port=8000)
+    app.run(host="localhost", port=8000)

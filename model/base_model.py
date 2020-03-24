@@ -51,7 +51,7 @@ class BaseModel(object):
     @class_dbsession(True)
     def join(cls, session, other_model, join_condition):
         u"""
-        两表连接查询
+
         """
         return session.query(cls, other_model).join(
             other_model, *join_condition)
